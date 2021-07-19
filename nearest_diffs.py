@@ -7,7 +7,7 @@ from nltk.translate.bleu_score import sentence_bleu
 import re
 from tqdm import tqdm
 from lmg_eval import finding_bestK, finding_topK, clean_msg
-
+import csv
 from sys import exit
 
 
@@ -32,9 +32,9 @@ if __name__ == '__main__':
     train_ftr = pickle.load(open(params.train_cc2ftr_data, "rb"))   
     test_ftr = pickle.load(open(params.test_cc2ftr_data, "rb"))
     
-    final_list_cosine_sim=[['test_diff','given_LM','pred_diff','pred_LM','top1_diff','top1_LM','top2_diff','top2_LM'
-     ,'top3_diff','top3_LM','top4_diff','top4_LM','top5_diff','top5_LM','top6_diff','top6_LM'
-     ,'top7_diff','top7_LM','top8_diff','top8_LM','top9_diff','top9_LM','top10_diff','top10_LM']]
+    final_list_cosine_sim=[['test_diff'],['given_LM'],['pred_diff'],['pred_LM'],['top1_diff'],['top1_LM'],['top2_diff'],['top2_LM']
+     ,['top3_diff'],['top3_LM'],['top4_diff'],['top4_LM'],['top5_diff'],['top5_LM'],['top6_diff'],['top6_LM']
+     ,['top7_diff'],['top7_LM'],['top8_diff'],['top8_LM'],['top9_diff'],['top9_LM'],['top10_diff'],['top10_LM']]
     
     for i, (_) in enumerate(tqdm([i for i in range(test_ftr.shape[0])])):
         temp=[]
@@ -48,15 +48,19 @@ if __name__ == '__main__':
         predlm = train_msg[bestK].lower()
         givenlm = test_msg[i].lower()
         prediff = train_diff[bestK]
-        temp.append(test_diff[i])
-        temp.append(givenlm)
-        temp.append(prediff)
-        temp.append(predlm)
+        final_list_cosine_sim[0].append(test_diff[i])
+        final_list_cosine_sim[1].append(givenlm)
+        final_list_cosine_sim[2].append(prediff)
+        final_list_cosine_sim[3].append(predlm)
+        x = 4
         for j in topK_index:
-            temp.append(train_diff[j])
-            temp.append(train_msg[j])
+            final_list_cosine_sim[x].append(train_diff[j])
+            final_list_cosine_sim[x+1].append(train_msg[j])
+            x=x+2
         
-        final_list_cosine_sim.append(temp)
+    with open('nearest_diff.csv', 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerows(final_list_cosine_sim)
         
         
         
