@@ -134,8 +134,11 @@ class HierachicalRNN(nn.Module):
             words = list()
             for k in range(n_batch):
                 words.append(x[k][j])                
-            words = np.array(words)            
-            sent, state_word = self.wordRNN(torch.cuda.LongTensor(words).view(-1, self.batch_size), hid_state_word)
+            words = np.array(words) 
+            if torch.cuda.is_available():
+                sent, state_word = self.wordRNN(torch.cuda.LongTensor(words).view(-1, self.batch_size), hid_state_word)
+            else:
+                sent, state_word = self.wordRNN(torch.LongTensor(words).view(-1, self.batch_size), hid_state_word) 
             sents.append(sent)            
         output = torch.squeeze(torch.cat(sents, dim=2))
         return output
