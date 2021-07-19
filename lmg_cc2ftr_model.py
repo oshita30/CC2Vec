@@ -226,10 +226,17 @@ class HierachicalRNN(nn.Module):
         return F.relu(W_output + V_output)
 
     def init_hidden_hunk(self):
-        return Variable(torch.zeros(2, self.batch_size, self.hidden_size)).cuda()
+        if torch.cuda.is_available():
+            return Variable(torch.zeros(2, self.batch_size, self.hidden_size)).cuda()
+        else:
+            return Variable(torch.zeros(2, self.batch_size, self.hidden_size))        
 
     def init_hidden_sent(self):
         return Variable(torch.zeros(2, self.batch_size, self.hidden_size)).cuda()
 
     def init_hidden_word(self):
-        return Variable(torch.zeros(2, self.batch_size, self.hidden_size)).cuda()
+        if torch.cuda.is_available():
+            return Variable(torch.zeros(2, self.batch_size, self.hidden_size)).cuda()
+        else:
+            return Variable(torch.zeros(2, self.batch_size, self.hidden_size))
+
