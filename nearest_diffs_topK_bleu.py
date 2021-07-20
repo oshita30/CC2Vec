@@ -62,7 +62,7 @@ if __name__ == '__main__':
             t=t+1
         
     
-    for i, (_) in enumerate(tqdm([i for i in range(test_ftr.shape[0])])):
+    for i, (_) in enumerate(tqdm([i for i in range(2216)])):
         temp=[]
         
         # not using topK based on cosine similarity
