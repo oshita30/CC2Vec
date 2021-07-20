@@ -9,6 +9,7 @@ from tqdm import tqdm
 from lmg_eval import load_kNN_model, clean_msg, finding_topK, finding_bestK, get_data_index, clean_each_line
 import matplotlib.pyplot as plt
 from sys import exit
+from pickle import dump
 
 
 def read_args():
@@ -39,33 +40,13 @@ if __name__ == '__main__':
     
     dict_k={}
     
-    for k in range(1,21):
+    for k in range(30,150,10):
         blue_scores = load_kNN_model(org_diff_code=org_diff_data, tf_diff_code=tf_diff_data, ref_msg=ref_data, topK=k)
         dict_k[k] = sum(blue_scores) / len(blue_scores) * 100
         print('Average of blue scores for k=',k,': ', sum(blue_scores) / len(blue_scores) * 100)
         
-    
-    bleu_list=[]
-    for i in range(1,11):
-        bleu_list.append(dict_k[i])
-        
-    K = range(1,11)
-    plt.plot(K, bleu_list, 'bx-')
-    plt.xlabel('Values of K')
-    plt.ylabel('Bleu_score')
-    plt.show()
-    plt.savfig('topK_graph_1to10.png')
-    plt.close()
+    a_file = open("dict_k.pkl", "wb")
+    pickle.dump(dict_k, a_file)
+    a_file.close()
     
     
-    bleu_list=[]
-    for i in range(11,21):
-        bleu_list.append(dict_k[i])
-        
-    K = range(11,21)
-    plt.plot(K, bleu_list, 'bx-')
-    plt.xlabel('Values of K')
-    plt.ylabel('Bleu_score')
-    plt.show()
-    plt.savfig('topK_graph_11to20.png')
-    plt.close()
