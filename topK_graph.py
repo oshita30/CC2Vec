@@ -39,7 +39,7 @@ if __name__ == '__main__':
     
     dict_k={}
     
-    for k, (_) in enumerate(tqdm(list(range(1,21)))):
+    for k in range(1,21):
         blue_scores = load_kNN_model(org_diff_code=org_diff_data, tf_diff_code=tf_diff_data, ref_msg=ref_data, topK=k)
         dict_k[k] = sum(blue_scores) / len(blue_scores) * 100
         print('Average of blue scores for k=',k,': ', sum(blue_scores) / len(blue_scores) * 100)
