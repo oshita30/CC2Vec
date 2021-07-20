@@ -9,7 +9,7 @@ from tqdm import tqdm
 from lmg_eval import finding_bestK, finding_topK, clean_msg
 
 from sys import exit
-
+# this file calculates the top k training diffs based on bleu score for every test diff and stores in a csv file.
 
 def finding_topK_bleu(diff_trains, diff_test, topK=1):
     diff_code_train = [d.lower().split() for d in diff_trains] #list of lists of tokenized code changes
