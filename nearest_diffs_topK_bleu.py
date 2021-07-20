@@ -79,8 +79,8 @@ if __name__ == '__main__':
         # top k diffs based on bleu score
         topK_index_bleu = finding_topK_bleu(diff_trains=train_diff, diff_test=test_diff[i], topK=k)
         for j in topK_index_bleu:
-            final_list_cosine_sim[x].append(train_diff[j])
-            final_list_cosine_sim[x+1].append(train_msg[j])
+            final_list_bleu[x].append(train_diff[j])
+            final_list_bleu[x+1].append(train_msg[j])
             x=x+2
         
         
