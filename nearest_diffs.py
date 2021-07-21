@@ -48,13 +48,13 @@ if __name__ == '__main__':
         predlm = train_msg[bestK].lower()
         givenlm = test_msg[i].lower()
         prediff = train_diff[bestK]
-        final_list_cosine_sim[0].append(test_diff[i])
+        final_list_cosine_sim[0].append(test_diff[i].replace('<nl>','\n'))
         final_list_cosine_sim[1].append(givenlm)
-        final_list_cosine_sim[2].append(prediff)
+        final_list_cosine_sim[2].append(prediff.replace('<nl>','\n'))
         final_list_cosine_sim[3].append(predlm)
         x = 4
         for j in topK_index:
-            final_list_cosine_sim[x].append(train_diff[j])
+            final_list_cosine_sim[x].append(train_diff[j].replace('<nl>','\n'))
             final_list_cosine_sim[x+1].append(train_msg[j])
             x=x+2
         
