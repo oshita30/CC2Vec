@@ -36,6 +36,15 @@ if __name__ == '__main__':
      ,['top3_diff'],['top3_LM'],['top4_diff'],['top4_LM'],['top5_diff'],['top5_LM'],['top6_diff'],['top6_LM']
      ,['top7_diff'],['top7_LM'],['top8_diff'],['top8_LM'],['top9_diff'],['top9_LM'],['top10_diff'],['top10_LM']]
     
+    if k>10:
+    t = 11
+    while t <= k:
+        s = 'top'+str(t)+'_diff'
+        s1 = 'top'+str(t)+'_LM'
+        final_list_bleu.append([s])
+        final_list_bleu.append([s1])
+        t=t+1
+    
     for i, (_) in enumerate(tqdm([i for i in range(test_ftr.shape[0])])):
         temp=[]
         element = test_ftr[i, :]
