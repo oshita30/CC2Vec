@@ -41,7 +41,7 @@ if __name__ == '__main__':
         element = test_ftr[i, :]
         element = np.reshape(element, (1, element.shape[0]))
         cosine_sim = cosine_similarity(X=train_ftr, Y=element)
-        topK_index = finding_topK(cosine_sim, topK=10)
+        topK_index = finding_topK(cosine_sim, topK=20)
         # taking top 10 diffs based on cosine similarity
         bestK = finding_bestK(diff_trains=train_diff, diff_test=test_diff[i], topK_index=topK_index)
         # bestK is the index of predicted log message
